@@ -29,5 +29,11 @@ namespace DyrdaDev.FirstPersonController
         ///     Interaction type: continuous axes.
         /// </summary>
         public abstract IObservable<Vector2> Look { get; }
+
+        /// <summary>
+        ///     Duck button.
+        ///     Interaction type: Toggle.
+        /// </summary>
+        public abstract ReadOnlyReactiveProperty<bool> Crouch { get; } // here
     }
 }

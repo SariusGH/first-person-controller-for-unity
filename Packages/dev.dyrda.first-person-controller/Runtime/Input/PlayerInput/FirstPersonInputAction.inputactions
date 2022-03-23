@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "FirstPersonInputAction",
     "maps": [
         {
             "name": "Character",
@@ -33,6 +33,14 @@
                     "name": "Run",
                     "type": "Button",
                     "id": "397fae28-9f60-4931-a66d-8f18c4b9dbe6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "36695204-0863-4e66-9243-b34b1084e05c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -278,6 +286,28 @@
                     "processors": "ScaleVector2(x=100,y=100)",
                     "groups": "Gamepad",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93e4d34c-7efb-4ccb-9265-c34de75ca278",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "571654be-6f1f-4679-bca6-191f74f29e4a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

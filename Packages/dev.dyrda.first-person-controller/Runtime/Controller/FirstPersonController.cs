@@ -28,6 +28,10 @@ namespace DyrdaDev.FirstPersonController
         public IObservable<Unit> Stepped => _stepped;
         private Subject<Unit> _stepped;
 
+        // here
+        public ReactiveProperty<bool> IsCrouching => _isCrouching;
+        private ReactiveProperty<bool> _isCrouching;
+
         #endregion
 
         #region Configuration
@@ -40,8 +44,9 @@ namespace DyrdaDev.FirstPersonController
         [Header("Locomotion Properties")]
         [SerializeField] private float walkSpeed = 5f;
         [SerializeField] private float runSpeed = 10f;
+        [SerializeField] private float crouchSpeed = 2f; // here
         [SerializeField] private float jumpForceMagnitude = 10f;
-        [SerializeField] private float strideLength = 4f;
+        [SerializeField] private float strideLength = 4f; // maybe change stride length on speed / walk,run,crouch status
         public float StrideLength => strideLength;
         [SerializeField] private float stickToGroundForceMagnitude = 5f;
 
@@ -61,6 +66,7 @@ namespace DyrdaDev.FirstPersonController
             _jumped = new Subject<Unit>().AddTo(this);
             _landed = new Subject<Unit>().AddTo(this);
             _stepped = new Subject<Unit>().AddTo(this);
+            _isCrouching = new ReactiveProperty<bool>(false); // here
         }
 
         private void Start()
@@ -115,6 +121,7 @@ namespace DyrdaDev.FirstPersonController
 
                     // Horizontal movement:
                     var currentSpeed = firstPersonControllerInput.Run.Value ? runSpeed : walkSpeed;
+                    currentSpeed = firstPersonControllerInput.Crouch.Value ? crouchSpeed : currentSpeed; // here (does not account for crouching while jumping or similar)
                     var horizontalVelocity = i.Move * currentSpeed; //Calculate velocity (direction * speed).
 
                     // Combine horizontal and vertical movement.
@@ -135,18 +142,32 @@ namespace DyrdaDev.FirstPersonController
         private void HandleLocomotionCharacterSignalsIteration(bool wasGrounded, bool isGrounded)
         {
             var tempIsRunning = false;
+            var tempIsCrouching = false; // here
 
             if (wasGrounded && isGrounded)
             {
                 // The character was grounded at the beginning and end of this frame.
 
-                _moved.OnNext(_characterController.velocity * Time.deltaTime);
+                _moved.OnNext(_characterController.velocity * Time.deltaTime); // does this imply we only update Moved when on ground??? -> yes and therefore also only have headbob on ground, but bad backwards connection, right?
 
                 if (_characterController.velocity.magnitude > 0)
                 {
                     // The character is running if the input is active and
                     // the character is actually moving on the ground
                     tempIsRunning = firstPersonControllerInput.Run.Value;
+                    
+                    // here
+                    if (!tempIsRunning)
+                    {
+                        // The character is actually moving on the ground
+                        // but he is not running
+                        tempIsCrouching = firstPersonControllerInput.Crouch.Value; // maybe rework as it only effects when crouching but not while jumping, but maybe does when back on ground which would make sence -> just test
+                    }
+                } else // here
+                {
+                    // The character is actually on the ground
+                    // even if run is pressed, he does not move or run but can crouch
+                    tempIsCrouching = firstPersonControllerInput.Crouch.Value;
                 }
             }
 
@@ -158,6 +179,7 @@ namespace DyrdaDev.FirstPersonController
             }
 
             _isRunning.Value = tempIsRunning;
+            _isCrouching.Value = tempIsCrouching;
         }
 
         private void HandleSteppedCharacterSignal()
@@ -196,6 +218,19 @@ namespace DyrdaDev.FirstPersonController
                     
                     _camera.transform.localRotation =
                         RotationTools.ClampRotationAroundXAxis(newQ, -maxViewAngle, -minViewAngle);
+                }).AddTo(this);
+
+            // here
+            IsCrouching // a lot to change here, maybe even move to different scrip as effect, just a test
+                .Subscribe(v =>
+                {
+                    if (v)
+                    {
+                        _camera.transform.localPosition -= Vector3.up * 3f;
+                    } else
+                    {
+                        _camera.transform.localPosition += Vector3.up * 3f;
+                    }
                 }).AddTo(this);
         }
 
