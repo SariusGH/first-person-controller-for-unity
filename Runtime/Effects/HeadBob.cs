@@ -11,7 +11,8 @@ namespace DyrdaDev.FirstPersonController
         private Camera _camera;
 
         [Header("Bob Configuration")]
-        [SerializeField] private float walkBobMagnitude = 0.05f;
+        [SerializeField] private float walkBobMagnitude = 0.05f; // why is stride change here at the headbob and not the ICharacterSignals and gets updated via a stream from FirstPersonController
+        // this could also resolv the moved stream only containing on ground movement, by just setting the bob magnitude to 0 in the air
         [SerializeField] private float runBobMagnitude = 0.10f;
         [SerializeField] private AnimationCurve bobCurve = new AnimationCurve(
             new Keyframe(0.00f, 0f),

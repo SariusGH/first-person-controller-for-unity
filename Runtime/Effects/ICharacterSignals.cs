@@ -35,5 +35,10 @@ namespace DyrdaDev.FirstPersonController
         ///     A stream with stepped events. Triggered when the camera has moved one stride length.
         /// </summary>
         IObservable<Unit> Stepped { get; }
+
+        /// <summary>
+        ///     A "Is the character crouching?" stream.
+        /// </summary>
+        ReactiveProperty<bool> IsCrouching { get; } // here
     }
 }

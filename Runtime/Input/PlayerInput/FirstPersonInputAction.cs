@@ -51,6 +51,14 @@ namespace DyrdaDev.FirstPersonController
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""36695204-0863-4e66-9243-b34b1084e05c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -295,6 +303,28 @@ namespace DyrdaDev.FirstPersonController
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93e4d34c-7efb-4ccb-9265-c34de75ca278"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""571654be-6f1f-4679-bca6-191f74f29e4a"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -335,6 +365,7 @@ namespace DyrdaDev.FirstPersonController
             m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
             m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
             m_Character_Run = m_Character.FindAction("Run", throwIfNotFound: true);
+            m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -388,6 +419,7 @@ namespace DyrdaDev.FirstPersonController
         private readonly InputAction m_Character_Look;
         private readonly InputAction m_Character_Jump;
         private readonly InputAction m_Character_Run;
+        private readonly InputAction m_Character_Crouch;
         public struct CharacterActions
         {
             private @FirstPersonInputAction m_Wrapper;
@@ -396,6 +428,7 @@ namespace DyrdaDev.FirstPersonController
             public InputAction @Look => m_Wrapper.m_Character_Look;
             public InputAction @Jump => m_Wrapper.m_Character_Jump;
             public InputAction @Run => m_Wrapper.m_Character_Run;
+            public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
             public InputActionMap Get() { return m_Wrapper.m_Character; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -417,6 +450,9 @@ namespace DyrdaDev.FirstPersonController
                     @Run.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRun;
                     @Run.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRun;
                     @Run.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRun;
+                    @Crouch.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
+                    @Crouch.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
+                    @Crouch.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnCrouch;
                 }
                 m_Wrapper.m_CharacterActionsCallbackInterface = instance;
                 if (instance != null)
@@ -433,6 +469,9 @@ namespace DyrdaDev.FirstPersonController
                     @Run.started += instance.OnRun;
                     @Run.performed += instance.OnRun;
                     @Run.canceled += instance.OnRun;
+                    @Crouch.started += instance.OnCrouch;
+                    @Crouch.performed += instance.OnCrouch;
+                    @Crouch.canceled += instance.OnCrouch;
                 }
             }
         }
@@ -461,6 +500,7 @@ namespace DyrdaDev.FirstPersonController
             void OnLook(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnRun(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
         }
     }
 }
