@@ -241,6 +241,8 @@ namespace DyrdaDev.FirstPersonController
                     }
                     _localCameraPos.Value = _camera.transform.localPosition;
                 }).AddTo(this);
+            _camera.transform.localPosition -= Vector3.up * _characterController.height / 2.0f; // needed to everride the initial set of IsCrouching to false
+            jumpForceMagnitude /= 2.0f;
         }
 
 
