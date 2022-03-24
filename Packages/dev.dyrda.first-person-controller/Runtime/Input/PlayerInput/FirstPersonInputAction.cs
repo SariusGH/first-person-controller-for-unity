@@ -287,7 +287,7 @@ namespace DyrdaDev.FirstPersonController
                     ""id"": ""828e40e0-134a-47e5-9ffb-c53b7e37e8b7"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.01,y=0.01),DivideVector2ByDeltaTime"",
+                    ""processors"": ""ScaleVector2(x=0.1,y=0.1),DivideVector2ByDeltaTime"",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
