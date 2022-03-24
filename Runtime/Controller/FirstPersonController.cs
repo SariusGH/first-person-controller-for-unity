@@ -32,6 +32,10 @@ namespace DyrdaDev.FirstPersonController
         public ReactiveProperty<bool> IsCrouching => _isCrouching;
         private ReactiveProperty<bool> _isCrouching;
 
+        // here
+        public ReactiveProperty<Vector3> LocalCameraPos => _localCameraPos;
+        private ReactiveProperty<Vector3> _localCameraPos;
+
         #endregion
 
         #region Configuration
@@ -67,6 +71,7 @@ namespace DyrdaDev.FirstPersonController
             _landed = new Subject<Unit>().AddTo(this);
             _stepped = new Subject<Unit>().AddTo(this);
             _isCrouching = new ReactiveProperty<bool>(false); // here
+            _localCameraPos = new ReactiveProperty<Vector3>(_camera.transform.localPosition); // here
         }
 
         private void Start()
@@ -231,6 +236,7 @@ namespace DyrdaDev.FirstPersonController
                     {
                         _camera.transform.localPosition += Vector3.up * 3f;
                     }
+                    _localCameraPos.Value = _camera.transform.localPosition;
                 }).AddTo(this);
         }
 

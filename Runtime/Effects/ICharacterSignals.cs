@@ -40,5 +40,10 @@ namespace DyrdaDev.FirstPersonController
         ///     A "Is the character crouching?" stream.
         /// </summary>
         ReactiveProperty<bool> IsCrouching { get; } // here
+
+        /// <summary>
+        ///     A "current local position of the camera" stream.
+        /// </summary>
+        ReactiveProperty<Vector3> LocalCameraPos { get; } // here
     }
 }
