@@ -125,8 +125,8 @@ namespace DyrdaDev.FirstPersonController
                     }
 
                     // Horizontal movement:
-                    var currentSpeed = firstPersonControllerInput.Run.Value ? runSpeed : walkSpeed;
-                    currentSpeed = firstPersonControllerInput.Crouch.Value ? crouchSpeed : currentSpeed; // here (does not account for crouching while jumping or similar)
+                    var currentSpeed = firstPersonControllerInput.Crouch.Value ? crouchSpeed : walkSpeed; // here
+                    currentSpeed = firstPersonControllerInput.Run.Value ? runSpeed : currentSpeed; // here, was normally walkspeed as default
                     var horizontalVelocity = i.Move * currentSpeed; //Calculate velocity (direction * speed).
 
                     // Combine horizontal and vertical movement.
@@ -231,10 +231,10 @@ namespace DyrdaDev.FirstPersonController
                 {
                     if (v)
                     {
-                        _camera.transform.localPosition -= Vector3.up * 3f;
+                        _camera.transform.localPosition -= Vector3.up * _characterController.height / 2.0f;
                     } else
                     {
-                        _camera.transform.localPosition += Vector3.up * 3f;
+                        _camera.transform.localPosition += Vector3.up * _characterController.height / 2.0f;
                     }
                     _localCameraPos.Value = _camera.transform.localPosition;
                 }).AddTo(this);
