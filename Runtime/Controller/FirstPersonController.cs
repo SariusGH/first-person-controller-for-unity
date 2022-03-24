@@ -185,6 +185,11 @@ namespace DyrdaDev.FirstPersonController
 
             _isRunning.Value = tempIsRunning;
             // _isCrouching.Value = tempIsCrouching;
+            // here
+            if (tempIsRunning)
+            {
+                _isCrouching.Value = false;
+            }
         }
 
         private void HandleSteppedCharacterSignal()
@@ -242,7 +247,7 @@ namespace DyrdaDev.FirstPersonController
                     _localCameraPos.Value = _camera.transform.localPosition;
                 }).AddTo(this);
             _camera.transform.localPosition -= Vector3.up * _characterController.height / 2.0f; // needed to everride the initial set of IsCrouching to false
-            jumpForceMagnitude /= 2.0f;
+            jumpForceMagnitude /= 2.0f; // change later, as causes inti thing to flicker at first move, cause fix is to early
         }
 
 
