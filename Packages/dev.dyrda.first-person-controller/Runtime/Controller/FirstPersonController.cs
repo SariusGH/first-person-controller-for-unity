@@ -125,7 +125,8 @@ namespace DyrdaDev.FirstPersonController
                     }
 
                     // Horizontal movement:
-                    var currentSpeed = firstPersonControllerInput.Crouch.Value ? crouchSpeed : walkSpeed; // here
+                    // var currentSpeed = firstPersonControllerInput.Crouch.Value ? crouchSpeed : walkSpeed; // here
+                    var currentSpeed = IsCrouching.Value ? crouchSpeed : walkSpeed; // here
                     currentSpeed = firstPersonControllerInput.Run.Value ? runSpeed : currentSpeed; // here, was normally walkspeed as default
                     var horizontalVelocity = i.Move * currentSpeed; //Calculate velocity (direction * speed).
 
