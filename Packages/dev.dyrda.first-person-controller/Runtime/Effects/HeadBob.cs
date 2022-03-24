@@ -46,6 +46,9 @@ namespace DyrdaDev.FirstPersonController
 
                 _camera.transform.localPosition = _initialCameraPosition + deltaPosition;
             }).AddTo(this);
+
+            // here
+            _characterSignals.LocalCameraPos.Subscribe(v => _initialCameraPosition = v).AddTo(this);
         }
     }
 }
