@@ -226,7 +226,7 @@ namespace DyrdaDev.FirstPersonController
                 }).AddTo(this);
 
             // here
-            _isCrouching.Value = firstPersonControllerInput.Crouch.Value;
+            firstPersonControllerInput.Crouch.Subscribe(v => _isCrouching.Value = v);
             IsCrouching // a lot to change here, maybe even move to different scrip as effect, just a test
                 .Subscribe(v =>
                 {
