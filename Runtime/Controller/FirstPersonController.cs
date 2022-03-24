@@ -147,7 +147,7 @@ namespace DyrdaDev.FirstPersonController
         private void HandleLocomotionCharacterSignalsIteration(bool wasGrounded, bool isGrounded)
         {
             var tempIsRunning = false;
-            var tempIsCrouching = false; // here
+            // var tempIsCrouching = false; // here
 
             if (wasGrounded && isGrounded)
             {
@@ -166,13 +166,13 @@ namespace DyrdaDev.FirstPersonController
                     {
                         // The character is actually moving on the ground
                         // but he is not running
-                        tempIsCrouching = firstPersonControllerInput.Crouch.Value; // maybe rework as it only effects when crouching but not while jumping, but maybe does when back on ground which would make sence -> just test
+                        // tempIsCrouching = firstPersonControllerInput.Crouch.Value; // maybe rework as it only effects when crouching but not while jumping, but maybe does when back on ground which would make sence -> just test
                     }
                 } else // here
                 {
                     // The character is actually on the ground
                     // even if run is pressed, he does not move or run but can crouch
-                    tempIsCrouching = firstPersonControllerInput.Crouch.Value;
+                    // tempIsCrouching = firstPersonControllerInput.Crouch.Value;
                 }
             }
 
@@ -184,7 +184,7 @@ namespace DyrdaDev.FirstPersonController
             }
 
             _isRunning.Value = tempIsRunning;
-            _isCrouching.Value = tempIsCrouching;
+            // _isCrouching.Value = tempIsCrouching;
         }
 
         private void HandleSteppedCharacterSignal()
@@ -226,15 +226,18 @@ namespace DyrdaDev.FirstPersonController
                 }).AddTo(this);
 
             // here
+            _isCrouching.Value = firstPersonControllerInput.Crouch.Value;
             IsCrouching // a lot to change here, maybe even move to different scrip as effect, just a test
                 .Subscribe(v =>
                 {
                     if (v)
                     {
                         _camera.transform.localPosition -= Vector3.up * _characterController.height / 2.0f;
+                        jumpForceMagnitude /= 2.0f;
                     } else
                     {
                         _camera.transform.localPosition += Vector3.up * _characterController.height / 2.0f;
+                        jumpForceMagnitude *= 2.0f;
                     }
                     _localCameraPos.Value = _camera.transform.localPosition;
                 }).AddTo(this);
