@@ -26,12 +26,12 @@ namespace DyrdaDev.FirstPersonController
         {
             // IsFrozen
             _isFrozen = this.UpdateAsObservable()
-                .Select(_ => Input.GetKeyDown(KeyCode.F))
+                .Select(_ => false /*Input.GetKeyDown(KeyCode.F)*/)
                 .ToReadOnlyReactiveProperty();
 
             // HasJumpboost
             _hasJumpboost = this.UpdateAsObservable()
-                .Select(_ => Input.GetKeyDown(KeyCode.J))
+                .Select(_ => false /*Input.GetKeyDown(KeyCode.J)*/)
                 .ToReadOnlyReactiveProperty();
         }
     }
