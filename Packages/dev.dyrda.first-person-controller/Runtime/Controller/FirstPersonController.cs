@@ -75,8 +75,9 @@ namespace DyrdaDev.FirstPersonController
             _jumped = new Subject<Unit>().AddTo(this);
             _landed = new Subject<Unit>().AddTo(this);
             _stepped = new Subject<Unit>().AddTo(this);
-            _isCrouching = new ReactiveProperty<bool>(false); // here
-            _localCameraPos = new ReactiveProperty<Vector3>(_camera.transform.localPosition); // here
+            _isCrouching = new ReactiveProperty<bool>(false);
+            _localCameraPos = new ReactiveProperty<Vector3>(_camera.transform.localPosition);
+            _animationState = new ReactiveProperty<AnimationEnum>(AnimationEnum.Idle);
         }
 
         private void Start()
