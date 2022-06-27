@@ -21,7 +21,6 @@ namespace DyrdaDev.FirstPersonController
         public override IObservable<Vector2> Look => _look;
         private IObservable<Vector2> _look;
 
-        // here
         public override ReadOnlyReactiveProperty<bool> Crouch => _crouch;
         private ReadOnlyReactiveProperty<bool> _crouch;
 
@@ -62,7 +61,6 @@ namespace DyrdaDev.FirstPersonController
             _jump = new Subject<Unit>().AddTo(this);
             _controls.Character.Jump.performed += context => _jump.OnNext(Unit.Default);
 
-
             // Run:
             _run = this.UpdateAsObservable()
                 .Select(_ => _controls.Character.Run.ReadValueAsObject() != null)
@@ -83,7 +81,6 @@ namespace DyrdaDev.FirstPersonController
                     return smoothLookValue;
                 });
 
-            // here
             // Crouch
             _crouch = this.UpdateAsObservable()
                 .Select(_ => _controls.Character.Crouch.ReadValueAsObject() != null)
