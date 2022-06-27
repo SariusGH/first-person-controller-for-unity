@@ -38,6 +38,7 @@ namespace DyrdaDev.FirstPersonController
                 // Whenever tick fires, emit the current Movment Input
                 var tickSub = tick.Subscribe(_ =>
                 {
+                    _groundedInput.GroundedUpdateRequest.OnNext(Unit.Default);
                     observer.OnNext(_movementInput);
                 },
                     observer.OnError,
