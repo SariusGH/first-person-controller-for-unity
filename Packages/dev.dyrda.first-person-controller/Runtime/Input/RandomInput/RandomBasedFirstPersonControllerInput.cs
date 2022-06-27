@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace DyrdaDev.FirstPersonController
 {
+    // just a mock class, not in use
     public class RandomBasedFirstPersonControllerInput : FirstPersonControllerInput
     {
         #region Controller Input Fields
@@ -21,7 +22,6 @@ namespace DyrdaDev.FirstPersonController
         public override IObservable<Vector2> Look => _look;
         private IObservable<Vector2> _look;
 
-        // here
         public override ReadOnlyReactiveProperty<bool> Crouch => _crouch;
         private ReadOnlyReactiveProperty<bool> _crouch;
 
@@ -55,7 +55,7 @@ namespace DyrdaDev.FirstPersonController
 
             // Jump:
             _jump = new Subject<Unit>().AddTo(this);
-            //_controls.Character.Jump.performed += context => _jump.OnNext(Unit.Default);
+            // _controls.Character.Jump.performed += context => _jump.OnNext(Unit.Default);
 
 
             // Run:
@@ -78,7 +78,6 @@ namespace DyrdaDev.FirstPersonController
                     return smoothLookValue;
                 });
 
-            // here
             // Crouch
             _crouch = this.UpdateAsObservable()
                 .Select(_ => UnityEngine.Random.Range(-1.0f, 1.0f) > 0.0f ? true : false)
