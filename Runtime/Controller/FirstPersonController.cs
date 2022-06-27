@@ -56,7 +56,7 @@ namespace DyrdaDev.FirstPersonController
         [SerializeField] private float crouchSpeed = 2f;
         [SerializeField] private float jumpForceMagnitude = 10f;
         [SerializeField] private float strideLength = 4f;
-        public float StrideLength => strideLength; // here
+        public float StrideLength => strideLength;
         [SerializeField] private float stickToGroundForceMagnitude = 5f;
 
         [Header("Look Properties")]
@@ -88,7 +88,6 @@ namespace DyrdaDev.FirstPersonController
             // approach from base project
             // HandleLocomotion();
 
-            // approach from base project
             HandleLook();
 
             // behaviour and state machine approach
