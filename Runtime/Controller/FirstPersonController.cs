@@ -129,6 +129,7 @@ namespace DyrdaDev.FirstPersonController
                         }
                         else if (!inputT.Item1.Grounded)
                         {
+                            verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
                             _animationState.Value = AnimationEnum.Fall;
                         }
                         else if (inputT.Item2.HasDoor /*&& *Input for interacting*/) // can not go into door while falling
@@ -173,7 +174,6 @@ namespace DyrdaDev.FirstPersonController
                             {
                                 verticalVelocity = jumpForceMagnitude;
                             }
-                            verticalVelocity = jumpForceMagnitude;
                             _jumped.OnNext(Unit.Default);
                             _animationState.Value = AnimationEnum.Jump;
                         }
