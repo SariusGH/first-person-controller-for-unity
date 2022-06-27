@@ -190,10 +190,22 @@ namespace DyrdaDev.FirstPersonController
                         break;
 
                     case LocomotionEnum.Crouch:  // could not be falling here
+                        if (!inputT.Item1.Grounded) // falling, should not be the case
+                        {
+                            verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
+                            _animationState.Value = AnimationEnum.Fall;
+                        }
+                        verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
                         currentSpeed = crouchSpeed;
                         break;
 
                     case LocomotionEnum.Run:  // could not be falling here
+                        if (!inputT.Item1.Grounded) // falling, should not be the case
+                        {
+                            verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
+                            _animationState.Value = AnimationEnum.Fall;
+                        }
+                        verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
                         currentSpeed = runSpeed;
                         break;
                 }
