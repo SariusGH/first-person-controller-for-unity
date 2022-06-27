@@ -196,7 +196,10 @@ namespace DyrdaDev.FirstPersonController
                             verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
                             _animationState.Value = AnimationEnum.Fall;
                         }
-                        verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
+                        else
+                        {
+                            verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
+                        }
                         currentSpeed = crouchSpeed;
                         break;
 
@@ -206,7 +209,10 @@ namespace DyrdaDev.FirstPersonController
                             verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
                             _animationState.Value = AnimationEnum.Fall;
                         }
-                        verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
+                        else
+                        {
+                            verticalVelocity = -Mathf.Abs(stickToGroundForceMagnitude);
+                        }
                         currentSpeed = runSpeed;
                         break;
                 }
