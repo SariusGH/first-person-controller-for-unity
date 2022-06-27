@@ -186,6 +186,7 @@ namespace DyrdaDev.FirstPersonController
                             {
                                 _animationState.Value = AnimationEnum.Jump;
                             }
+                            verticalVelocity = _characterController.velocity.y + Physics.gravity.y * Time.deltaTime * 3.0f;
                         }
                         currentSpeed = walkSpeed;
                         break;
