@@ -173,6 +173,7 @@ namespace DyrdaDev.FirstPersonController
                             {
                                 verticalVelocity = jumpForceMagnitude;
                             }
+                            verticalVelocity = jumpForceMagnitude;
                             _jumped.OnNext(Unit.Default);
                             _animationState.Value = AnimationEnum.Jump;
                         }
